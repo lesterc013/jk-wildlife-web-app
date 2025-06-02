@@ -1,6 +1,7 @@
 // fetch("/api/format-message" {*insert the method and headers etc etc*})
-import { MyFormData } from "@/components/constructed-ui/constructed-form";
 import OpenAI from "openai";
+
+import { MessageFormatterFormShape } from "@/lib/validation/form-validation";
 import promptInstructions from "@/lib/prompt/prompt-instructions";
 
 const client = new OpenAI({
@@ -9,10 +10,10 @@ const client = new OpenAI({
 
 export async function POST(request: Request) {
   // request.json() un-jsons the body into a JS object
-  const body: MyFormData = await request.json();
+  const body: MessageFormatterFormShape = await request.json();
   const response = await client.responses.create({
     model: "gpt-4.1-mini",
-    input: `${body.input}`,
+    input: `${body.messageToFormat}`,
     instructions: `${promptInstructions}`,
   });
 
