@@ -1,4 +1,4 @@
-import MessageFormatterForm from "@/components/customised/formatter-form/message-formatter-form";
+import MessageFormatterForm from "@/components/MessageFormatterForm/MessageFormatterPage";
 
 export default function SandboxPage() {
   return (
