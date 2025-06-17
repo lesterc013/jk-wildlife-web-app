@@ -2,7 +2,7 @@
 import OpenAI from "openai";
 
 import { MessageFormatterFormShape } from "@/lib/validation/form-validation";
-import promptInstructions from "@/lib/prompt/prompt-instructions";
+import promptJson from "@/lib/prompt/prompt-json";
 
 const client = new OpenAI({
   apiKey: process.env.OPEN_AI_API_KEY,
@@ -14,10 +14,10 @@ export async function POST(request: Request) {
   const response = await client.responses.create({
     model: "gpt-4.1-mini",
     input: `${body.messageToFormat}`,
-    instructions: `${promptInstructions}`,
+    instructions: JSON.stringify(promptJson),
   });
 
-  console.log(response.output_text);
+  // console.log(JSON.stringify(promptJson));
 
   // Send back the parsed message as a json object
   return Response.json(response.output_text);
