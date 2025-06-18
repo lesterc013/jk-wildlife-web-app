@@ -1,166 +1,163 @@
-const exampleOne = `
-Example Input 1
-NPARKS-202501-1521562 - Bat
-Mr Nuj
-81234567
-1 PINE CLOSE SINGAPORE 123456
+const exampleOne = {
+  input: `
+      NPARKS-202501-1521562 - Bat
+      Mr Nuj
+      81234567
+      1 PINE CLOSE SINGAPORE 123456
 
-Call FP on ETA
+      Call FP on ETA
 
-Thanks! ARC Mahesh
+      Thanks! ARC Mahesh
 
-Activated JK Wildlife Jonathan 8:03 PM 1/16/2025
+      Activated JK Wildlife Jonathan 8:03 PM 1/16/2025
+      `,
+  expectedOutput: `
+      Activation: Urgent Bat Capture
 
-Expected Output 1
-Activation: Urgent Bat Capture
+      FP Address: 1 Pine Close S123456
 
-FP Address: 1 Pine Close S123456
+      FP Name: Mr Nuj
 
-FP Name: Mr Nuj
+      FP Contact: 81234567
 
-FP Contact: 81234567
+      Case ID: NPARKS-202501-1521562
 
-Case ID: NPARKS-202501-1521562
+      Activated By ARC: ARC Mahesh @ 2003hrs
 
-Activated By ARC: ARC Mahesh @ 2003hrs
+      JK Responding, ETA 60mins
+      `,
+};
 
-JK Responding, ETA 60mins
-`;
+const exampleTwo = {
+  input: `
+      NPARKS-202501-1514616
+      Civet Cat (Survey)
 
-const exampleTwo = `
-Example Input 2
-NPARKS-202501-1514616
-Civet Cat (Survey)
+      Name : Ms Chan
+      Contact: 91234567
+      Location: 20, BI HWAN DRIVE, SILVER HILL ESTATE, SINGAPORE 599012
 
-Name : Ms Chan
-Contact: 91234567
-Location: 20, BI HWAN DRIVE, SILVER HILL ESTATE, SINGAPORE 599012
+      Kindly called FP to give the ETA 
 
-Kindly called FP to give the ETA 
+      Thanks ARC Shank
+      *Called WM DO , DO advised to activate JK for survey 10:48 AM 1/3/2025
+      *Activate JKWildlife - 10:49 AM 1/3/2025
+      `,
+  expectedOutput: `
+      Activation: Urgent Civet Survey
 
-Thanks ARC Shank
-*Called WM DO , DO advised to activate JK for survey 10:48 AM 1/3/2025
-*Activate JKWildlife - 10:49 AM 1/3/2025
+      FP Address: 20 Bi Hwan Drive S599012
 
-Expected Output 2
-Activation: Urgent Civet Cat Survey
+      FP Name: Ms Chan
 
-FP Address: 20 Bi Hwan Drive S599012
+      FP Contact: 91234567
 
-FP Name: Ms Chan
+      Case ID: NPARKS-202501-1514616
 
-FP Contact: 91234567
+      Activated By ARC: ARC Shank @ 1049hrs
 
-Case ID: NPARKS-202501-1514616
+      JK Responding, ETA 60mins
+      `,
+};
 
-Activated By ARC: ARC Shank @ 1049hrs
+const exampleThree = {
+  input: `
+      NPARKS-202502-1534793
+      Black Snake (Survey)
+      Ms Tan
+      91234567
+      987, HOLLAND ROAD, SINGAPORE 987123
+      Activated JKW - Johnathan @ 7:45 PM 2/14/2025 
+      Thnks! ARC ADLYNN
+      `,
+  expectedOutput: `
+      Activation: Urgent Snake Survey
 
-JK Responding, ETA 60mins
-`;
+      FP Address: 987 Holland Road, S987123
 
-const exampleThree = `
-Example Input 3
-NPARKS-202502-1534793
-Black Snake (Survey)
-Ms Tan
-91234567
-987, HOLLAND ROAD, SINGAPORE 987123
-Activated JKW - Johnathan @ 7:45 PM 2/14/2025 
-Thnks! ARC ADLYNN
+      FP Name: Ms Tan
 
-Expected Output 3
-Activation: Urgent Snake Survey
+      FP Contact: 91234567
 
-FP Address: 987 Holland Road, S987123
+      Case ID: NPARKS-202502-1534793
 
-FP Name: Ms Tan
+      Activated By ARC: ARC ADLYNN @ 1945hrs
 
-FP Contact: 91234567
+      JK Responding, ETA 60mins
+      `,
+};
 
-Case ID: NPARKS-202502-1534793
+const exampleFour = {
+  input: `
+  Snake activation 
 
-Activated By ARC: ARC ADLYNN @ 1945hrs
+  Case: PARKS-202505-1582199
 
-JK Responding, ETA 60mins
-`;
+  Name: Ms. Kai 
+  Contact: 98765432
 
-const exampleFour = `
-Example Input 4
-Snake activation 
+  Address:  HILLGROVE GARDENS
+  567 BUKIT BATOK STREET 99 HILLGROVE GARDENS SINGAPORE 123456
+  #-239
 
-Case: PARKS-202505-1582199
+  Called JK wildlife spoke to Jonathan activation done @ 3:57 PM 17-May-25
 
-Name: Ms. Kai 
-Contact: 98765432
+  THANKS ARC EVE
+  `,
+  expectedOutput: `
+  Activation: Urgent Snake Capture
 
-Address:  HILLGROVE GARDENS
-567 BUKIT BATOK STREET 99 HILLGROVE GARDENS SINGAPORE 123456
-#-239
+  FP Address: 567 Bukit Batok Street 99 #-239 S123456
 
-Called JK wildlife spoke to Jonathan activation done @ 3:57 PM 17-May-25
+  FP Name: Ms. Kai
 
-THANKS ARC EVE
+  FP Contact: 98765432
 
-Expected Output 4
-Activation: Urgent Snake Capture
+  Case ID: NPARKS-202505-1582199
 
-FP Address: 567 Bukit Batok Street 99 #-239 S123456
+  Activated By ARC: ARC EVE @ 1557hrs
 
-FP Name: Ms. Kai
+  JK Responding, ETA 60mins
+  `,
+};
 
-FP Contact: 98765432
+const exampleFive = {
+  input: `
+  NPARKS-202505-1587646
+  Civet cat activation [Confined]
 
-Case ID: NPARKS-202505-1582199
+  Mr. Welly Chandra
+  91234567
+  Location
+  SEASIDE PARK
+  98 JALAN BULOH PERINDU SEASIDE PARK SINGAPORE 123456
 
-Activated By ARC: ARC EVE @ 1557hrs
+  Spoken with Ben - 27/05/2025, 18:08
+  Activation by WL DO Joey
 
-JK Responding, ETA 60mins
-`;
+  Thanks - ARC Chairul
+  `,
+  expectedOutput: `
+  Activation: Urgent Civet Transport
 
-const exampleFive = `
-Example Input 5
-NPARKS-202505-1587646
-Civet cat activation [Confined]
+  Case ID: NPARKS-202505-1587646
 
-Mr. Welly Chandra
-91234567
-Location
-SEASIDE PARK
-98 JALAN BULOH PERINDU SEASIDE PARK SINGAPORE 123456
+  FP Name: Mr Welly Chandra
 
-Spoken with Ben - 27/05/2025, 18:08
-Activation by WL DO Joey
+  FP Contact: 91234567
 
-Thanks - ARC Chairul
+  FP Address: 98 Jalan Buloh Perindu S123456
 
-Expect Output 5
-Activation: Urgent Civet Cat Capture [should be Urgent Civet Transport]
+  Activated By ARC: ARC Chairul @ 1808hrs
 
-Case ID: NPARKS-202505-1587646
+  JK Responding, ETA 60mins
+  `,
+};
 
-FP Name: Mr Welly Chandra
-
-FP Contact: 91234567
-
-FP Address: 98 Jalan Buloh Perindu S123456
-
-Activated By ARC: ARC Chairul [timing is missing also, should be 1808hrs]
-
-JK Responding, ETA 60mins
-`;
-
-const allExamplesArray = [
+export const allExamples = {
   exampleOne,
   exampleTwo,
   exampleThree,
   exampleFour,
   exampleFive,
-];
-
-let allExamples = ``;
-
-allExamplesArray.forEach((example) => {
-  allExamples += example.trim() + "\n\n";
-});
-
-export default allExamples.trim();
+};
