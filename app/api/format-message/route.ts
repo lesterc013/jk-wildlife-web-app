@@ -9,16 +9,12 @@ const client = new OpenAI({
 });
 
 export async function POST(request: Request) {
-  // request.json() un-jsons the body into a JS object
   const body: MessageFormatterFormShape = await request.json();
   const response = await client.responses.create({
     model: "gpt-4.1-mini",
-    input: `${body.messageToFormat}`,
     instructions: JSON.stringify(promptJson),
+    input: `${body.messageToFormat}`,
   });
 
-  // console.log(JSON.stringify(promptJson));
-
-  // Send back the parsed message as a json object
   return Response.json(response.output_text);
 }
